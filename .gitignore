@@ -1,0 +1,13 @@
+.DS_Store
+**/.DS_Store
+.env
+.env.*
+*.log
+~$*.docx
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+reports/render_*/
+reports/rendered*/
+reports/work/
