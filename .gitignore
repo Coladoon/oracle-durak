@@ -13,9 +13,7 @@ reports/render_*/
 reports/rendered*/
 reports/work/
 
-# Сторонний проект GO-9 хранится рядом локально и не относится к «Дураку».
 GO9_DEPLOY/
 GO9_SQL_DEVELOPER_GUIDE.sql
 
-# Распакованный переносимый комплект дублирует содержимое корня проекта.
 durak_oracle_project/

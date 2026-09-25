@@ -134,7 +134,7 @@ def build_diagrams() -> None:
         rounded_box(draw, box, fill, outline, 4)
         draw_centered_text(draw, (box[0] + 20, box[1] + 28, box[2] - 20, box[1] + 110), heading, FONT_34, outline)
         draw_centered_text(draw, (box[0] + 30, box[1] + 125, box[2] - 30, box[3] - 30), body, FONT_22, BLACK, 11)
-    draw_centered_text(draw, (120, 750, 1480, 850), "Главное правило: смотрите имя активного подключения в правом верхнем углу Worksheet, а не только название вкладки.", FONT_26, RED)
+    draw_centered_text(draw, (120, 750, 1480, 850), "Активное подключение определяется по имени в правом верхнем углу Worksheet.", FONT_26, RED)
     image.save(ASSETS / "01_roles.png")
 
     image, draw = canvas("Маршрут от пустой базы до первой партии")
@@ -158,7 +158,7 @@ def build_diagrams() -> None:
         if i not in (3, 7):
             arrow(draw, (x + 330, y + 102), (x + 370, y + 102), BLUE, 6, 18)
     arrow(draw, (1510, 370), (1510, 470), BLUE, 6, 18)
-    draw_centered_text(draw, (120, 785, 1480, 865), "Если шаг не завершён успешно, к следующему не переходите.", FONT_26, ORANGE)
+    draw_centered_text(draw, (120, 785, 1480, 865), "Переход к следующему этапу выполняется после проверки результата.", FONT_26, ORANGE)
     image.save(ASSETS / "02_launch_flow.png")
 
     image, draw = canvas("Шесть игроков: ход идёт по кругу")
@@ -177,13 +177,13 @@ def build_diagrams() -> None:
         box = (x - 175, y - 72, x + 175, y + 72)
         rounded_box(draw, box, fill, outline, 4, 28)
         draw_centered_text(draw, box, label, FONT_22, BLACK)
-    # Clockwise direction markers.
+    # Указатели направления хода по часовой стрелке.
     for start, end in [((1010, 175), (1140, 235)), ((1400, 420), (1400, 545)), ((1100, 765), (970, 815)), ((630, 815), (500, 765)), ((200, 545), (200, 420)), ((460, 235), (590, 175))]:
         arrow(draw, start, end, GRAY, 5, 16)
     draw_centered_text(draw, (60, 105, 500, 175), "По часовой стрелке", FONT_24, GRAY)
     image.save(ASSETS / "03_six_players.png")
 
-    image, draw = canvas("Один понятный цикл ручного хода")
+    image, draw = canvas("Порядок выполнения игрового действия")
     items = [
         ((65, 210, 385, 560), "1", "ОБНОВИТЬ", "SELECT …\nFROM V_GAME_CONSOLE", LIGHT_BLUE, BLUE),
         ((455, 210, 775, 560), "2", "ПОНЯТЬ", "Кто ходит?\nКакая фаза?\nЧто разрешено?", LIGHT_ORANGE, ORANGE),
@@ -201,7 +201,7 @@ def build_diagrams() -> None:
     arrow(draw, (1380, 590), (1380, 735), GRAY, 6, 18)
     arrow(draw, (1380, 735), (220, 735), GRAY, 6, 18)
     arrow(draw, (220, 735), (220, 590), GRAY, 6, 18)
-    draw_centered_text(draw, (400, 660, 1200, 800), "Повторять после каждого успешного действия", FONT_30, GRAY)
+    draw_centered_text(draw, (400, 660, 1200, 800), "Последовательность повторяется после каждого действия", FONT_30, GRAY)
     image.save(ASSETS / "04_game_loop.png")
 
     image, draw = canvas("Фазы партии и допустимые действия")
@@ -228,7 +228,7 @@ def build_diagrams() -> None:
     arrow(draw, (1285, 470), (1420, 585), BLUE, 5, 15)
     arrow(draw, (1185, 490), (470, 555), GRAY, 5, 15)
     draw.text((690, 525), "если игра продолжается", font=FONT_20, fill=rgb(GRAY))
-    draw_centered_text(draw, (100, 720, 1150, 845), "Точную текущую фазу всегда берите из TURN_TEXT или поля PHASE, а не угадывайте по предыдущему ходу.", FONT_26, ORANGE)
+    draw_centered_text(draw, (100, 720, 1150, 845), "Текущая фаза определяется по TURN_TEXT или полю PHASE.", FONT_26, ORANGE)
     image.save(ASSETS / "05_states.png")
 
 
@@ -506,7 +506,7 @@ def build_document() -> None:
     footer_run.font.color.rgb = RGBColor.from_string(GRAY)
     add_page_number(footer)
 
-    # Cover.
+    # Титульная страница.
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(52)
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -527,24 +527,24 @@ def build_document() -> None:
     cover_shape = p.add_run().add_picture(str(ASSETS / "02_launch_flow.png"), width=Inches(6.7))
     cover_shape._inline.docPr.set("descr", "Восемь этапов запуска проекта от Docker до ручной игры")
     cover_shape._inline.docPr.set("title", "Маршрут запуска проекта")
-    p = doc.add_paragraph("Версия для защиты минимального и хорошего уровней требований")
+    p = doc.add_paragraph("Учебный проект по Oracle SQL и PL/SQL")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.runs[0].bold = True
     p.runs[0].font.size = Pt(11)
     p.paragraph_format.space_before = Pt(8)
-    p = doc.add_paragraph("Подготовлено для Михаила • 25 сентября 2026")
+    p = doc.add_paragraph("2026")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.runs[0].font.size = Pt(9.5)
     p.runs[0].font.color.rgb = RGBColor.from_string(GRAY)
 
     doc.add_page_break()
-    heading(doc, "Как пользоваться этим руководством", 1)
+    heading(doc, "Назначение руководства", 1)
     doc.add_paragraph(
-        "Руководство ведёт от запуска пустой базы до ручной партии на шесть человек. "
-        "Каждый шаг отвечает на четыре вопроса: какое подключение открыть, что выполнить, "
-        "какой результат считать правильным и что делать при ошибке."
+        "Руководство описывает установку базы данных, подключение пользователей и "
+        "проведение партии с участием двух–шести игроков. Для каждого этапа указаны "
+        "необходимое подключение, команды и критерии проверки результата."
     )
-    add_note(doc, "Главная проверка.", "Перед любой командой смотрите имя активного подключения в правом верхнем углу Worksheet и выполняйте SELECT USER FROM dual. Ошибки чаще всего возникают не из-за SQL, а из-за запуска в другом подключении.", RED)
+    add_note(doc, "Проверка подключения.", "Перед выполнением команды проверьте имя активного подключения в правом верхнем углу Worksheet и выполните SELECT USER FROM dual.", RED)
     heading(doc, "Краткий маршрут", 2)
     add_table(
         doc,
@@ -659,7 +659,7 @@ def build_document() -> None:
         ],
         [1.7, 1.85, 3.15],
     )
-    add_note(doc, "Критически важно.", "Название вкладки может вводить в заблуждение. Реальное подключение показано в выпадающем списке справа вверху редактора Worksheet.", RED)
+    add_note(doc, "Активное подключение.", "При выполнении команд используется подключение, указанное в выпадающем списке справа вверху редактора Worksheet.", RED)
     heading(doc, "3.3. Проверка активного подключения", 2)
     doc.add_paragraph("В каждом новом Worksheet сначала выполните:")
     add_code(doc, "SELECT USER AS current_user,\n       SYS_CONTEXT('USERENV', 'CON_NAME') AS container_name\nFROM dual;")
@@ -729,16 +729,16 @@ ORDER BY username;""")
     add_note(doc, "Если ORA-00942 на DBA_USERS.", "Вы не в SYSTEM/SYS. Создайте новый Worksheet именно из system-freepdb1 и повторите SELECT USER.", RED)
     add_note(doc, "Если ORA-01031 на CREATE USER.", "Команда запущена от DURAK_OWNER или игрока. Перейдите в SYSTEM.", RED)
 
-    new_section(doc, "6. Выдача игровых прав", "Теперь вернитесь в DURAK_OWNER. SYSTEM на этом шаге не нужен.")
+    new_section(doc, "6. Выдача игровых прав", "Выдача прав выполняется из подключения DURAK_OWNER.")
     number(doc, "Откройте новый Worksheet от durak-owner.")
     number(doc, "Проверьте SELECT USER: должен быть DURAK_OWNER.")
     number(doc, "Вставьте команды ниже и нажмите F5.")
-    add_code(doc, """@"/Users/desertik/Documents/ChatGPT/Игра Дурак только на Oracle/admin/grant_player_access.sql" DURAK_P1
-@"/Users/desertik/Documents/ChatGPT/Игра Дурак только на Oracle/admin/grant_player_access.sql" DURAK_P2
-@"/Users/desertik/Documents/ChatGPT/Игра Дурак только на Oracle/admin/grant_player_access.sql" DURAK_P3
-@"/Users/desertik/Documents/ChatGPT/Игра Дурак только на Oracle/admin/grant_player_access.sql" DURAK_P4
-@"/Users/desertik/Documents/ChatGPT/Игра Дурак только на Oracle/admin/grant_player_access.sql" DURAK_P5
-@"/Users/desertik/Documents/ChatGPT/Игра Дурак только на Oracle/admin/grant_player_access.sql" DURAK_P6""")
+    add_code(doc, """@admin/grant_player_access.sql DURAK_P1
+@admin/grant_player_access.sql DURAK_P2
+@admin/grant_player_access.sql DURAK_P3
+@admin/grant_player_access.sql DURAK_P4
+@admin/grant_player_access.sql DURAK_P5
+@admin/grant_player_access.sql DURAK_P6""")
     doc.add_paragraph("В Script Output должны появиться сообщения Grant succeeded. Сценарий выдаёт только нужные права на DURAK_API, DURAK_CONSOLE и защищённые представления.")
     add_note(doc, "Не запускать Ctrl+Enter.", "Команда @ является командой сценария SQL*Plus; запускайте весь блок клавишей F5.", ORANGE)
 
@@ -786,7 +786,7 @@ FROM dual;""")
     )
     add_note(doc, "Почему это безопасно.", "CURRENT_SCHEMA меняет только поиск имён объектов. Игрок всё равно определяется по SESSION_USER и не получает прав владельца.", GREEN)
 
-    new_section(doc, "9. Создание партии на шесть игроков", "Для наглядной шестиместной демонстрации рекомендуется колода 52 карты: после раздачи остаётся 16 карт в талоне.")
+    new_section(doc, "9. Создание партии на шесть игроков", "Для партии на шесть игроков используется колода 52 карты; после раздачи в талоне остаётся 16 карт.")
     add_figure(doc, "03_six_players.png", "Рисунок 2 — места игроков и направление очереди")
     heading(doc, "9.1. Игрок P1 регистрируется и создаёт партию", 2)
     doc.add_paragraph("В окне DURAK_P1 выполните:")
@@ -935,7 +935,7 @@ EXEC durak_console.play('БИТО 9H 1', :message)
 PRINT message""")
     doc.add_paragraph("Можно отправить только код карты — консоль сама выберет действие по фазе:")
     add_code(doc, "EXEC durak_console.play('8H', :message)\nPRINT message")
-    add_note(doc, "Для защиты лучше писать явно.", "При нескольких парах используйте БИТО <карта> <номер пары>, чтобы не закрыть не ту атаку.", ORANGE)
+    add_note(doc, "Указание пары.", "При нескольких парах команда БИТО <карта> <номер пары> однозначно определяет покрываемую карту атаки.", ORANGE)
     heading(doc, "11.3. Коды карт", 2)
     add_table(
         doc,
@@ -977,13 +977,13 @@ PRINT message""")
     new_section(doc, "13. Параметры и режимы партии", "Основная версия поддерживает все требования минимального и хорошего уровней.")
     add_table(
         doc,
-        ["Параметр", "Значения", "Рекомендация для показа"],
+        ["Параметр", "Значения", "Пример настройки"],
         [
             ["P_DECK_SIZE", "36 или 52", "36 для 2–4; 52 для 6 игроков."],
-            ["P_GAME_VARIANT", "PODKIDNOY / PEREVODNOY", "Начать с PODKIDNOY."],
+            ["P_GAME_VARIANT", "PODKIDNOY / PEREVODNOY", "PODKIDNOY для базовой партии."],
             ["P_FIRST_MOVE_MODE", "LOWEST_TRUMP / SEEDED_RANDOM", "LOWEST_TRUMP показывает классическое правило."],
             ["P_MAX_PAIRS", "по умолчанию 6 / 8", "Оставить NULL/по умолчанию."],
-            ["P_TURN_TIMEOUT_SEC", "0 или секунды", "0 при ручной демонстрации."],
+            ["P_TURN_TIMEOUT_SEC", "0 или секунды", "0 при ручной проверке."],
             ["P_IDLE_TIMEOUT_MIN", "минуты простоя", "120 при длинной проверке."],
             ["P_SEED_TEXT", "произвольная строка", "Записать seed для повторения раздачи."],
         ],
@@ -1121,7 +1121,7 @@ SELECT name, type, line, position, text
 FROM user_errors
 ORDER BY name, sequence;""")
 
-    new_section(doc, "18. Сценарий демонстрации преподавателю", "Эта последовательность показывает все обязательные функции без лишних расширений уровня «отлично».")
+    new_section(doc, "18. Порядок функциональной проверки", "Последовательность охватывает функции минимального и хорошего уровней требований.")
     steps = [
         "Показать Docker-контейнер и подключение FREEPDB1.",
         "В DURAK_OWNER показать отсутствие INVALID-объектов и включённый scheduler job.",
@@ -1140,7 +1140,7 @@ ORDER BY name, sequence;""")
     ]
     for step in steps:
         number(doc, step)
-    heading(doc, "Контрольный чек-лист перед защитой", 2)
+    heading(doc, "Контрольный перечень проверки", 2)
     checklist_rows = [
         ["□", "Контейнер запускается и сообщает READY."],
         ["□", "DURAK_OWNER подключается к FREEPDB1."],
@@ -1155,7 +1155,7 @@ ORDER BY name, sequence;""")
     ]
     add_table(doc, ["", "Проверка"], checklist_rows, [0.45, 6.25])
 
-    new_section(doc, "Приложение A. Шпаргалка игрока", "Эту страницу удобно держать открытой во время ручной партии.")
+    new_section(doc, "Приложение A. Основные команды игрока", "Сводка команд для проведения партии в SQL Developer.")
     heading(doc, "1. В начале окна", 2)
     add_code(doc, """SET SERVEROUTPUT ON SIZE UNLIMITED
 ALTER SESSION SET CURRENT_SCHEMA = DURAK_OWNER;
@@ -1175,13 +1175,13 @@ EXEC durak_console.play('ПАС', :message)
 PRINT message""")
     heading(doc, "4. Посмотреть историю", 2)
     add_code(doc, "SELECT log_line FROM v_log_text\nWHERE game_id = 2102 ORDER BY event_no;")
-    add_note(doc, "Если непонятно, что делать.", "Не угадывайте: обновите V_GAME_CONSOLE, прочитайте TURN_TEXT и COMMAND_HINT, затем перейдите в окно указанного игрока.", BLUE)
+    add_note(doc, "Определение следующего действия.", "Обновите V_GAME_CONSOLE, проверьте TURN_TEXT и COMMAND_HINT, затем используйте подключение указанного игрока.", BLUE)
 
     doc.core_properties.title = "Руководство по запуску и игре «Дурак» только на Oracle"
     doc.core_properties.subject = "Oracle SQL Developer, Docker, ручная игра 2–6 игроков"
     doc.core_properties.author = "Михаил"
     doc.core_properties.keywords = "Oracle, SQL, PL/SQL, Дурак, SQL Developer, Docker"
-    doc.core_properties.comments = "Подробная инструкция по проекту минимального и хорошего уровней."
+    doc.core_properties.comments = "Руководство по установке и использованию учебного проекта."
 
     DOCS.mkdir(parents=True, exist_ok=True)
     doc.save(OUTPUT)

@@ -59,7 +59,7 @@ def draw_box(draw: ImageDraw.ImageDraw, xy, title: str, lines: Sequence[str], fi
 def create_diagrams() -> None:
     ASSETS.mkdir(parents=True, exist_ok=True)
 
-    # Conceptual ER diagram used in LR1.
+    # Концептуальная схема данных для первой лабораторной работы.
     img = Image.new("RGB", (1800, 1050), "white")
     d = ImageDraw.Draw(img)
     d.text((900, 42), "Концептуальная модель данных игры «Дурак»", font=font(38, True), fill="#172b4d", anchor="mm")
@@ -86,7 +86,7 @@ def create_diagrams() -> None:
     d.text((900, 760), "Связи обеспечиваются внешними ключами и ограничениями целостности Oracle", font=font(24), fill="#40566f", anchor="mm")
     img.save(ASSETS / "lr1_conceptual_er.png", quality=95)
 
-    # Core physical entity diagram for LR2.
+    # Схема основных таблиц для второй лабораторной работы.
     img = Image.new("RGB", (1800, 1100), "white")
     d = ImageDraw.Draw(img)
     d.text((900, 44), "Основные физические сущности и связи", font=font(38, True), fill="#172b4d", anchor="mm")
@@ -110,7 +110,7 @@ def create_diagrams() -> None:
         draw_arrow(d, a, b)
     img.save(ASSETS / "lr2_physical_er.png", quality=95)
 
-    # Package/layer interaction diagram for LR2.
+    # Схема взаимодействия пакетов для второй лабораторной работы.
     img = Image.new("RGB", (1800, 1050), "white")
     d = ImageDraw.Draw(img)
     d.text((900, 50), "Архитектура серверной реализации", font=font(40, True), fill="#172b4d", anchor="mm")
@@ -136,7 +136,7 @@ def empty_reference(reference: Path) -> Document:
     for child in list(body):
         if child.tag != qn("w:sectPr"):
             body.remove(child)
-    # Remove relationships and media that belonged to the sample content.
+    # Очистка связей и вложений исходного документа.
     for rel_id, rel in list(doc.part.rels.items()):
         if rel.reltype in (RT.IMAGE, RT.HYPERLINK):
             doc.part.drop_rel(rel_id)

@@ -44,8 +44,7 @@ BEGIN
     drop_if_exists('DROP VIEW v_game_status', -942);
     drop_if_exists('DROP VIEW v_current_player', -942);
 
-    -- В список включены и пакеты следующих этапов: повторная установка
-    -- останется рабочей после расширения проекта.
+    -- Удаляются также объекты архивных редакций схемы.
     drop_if_exists('DROP PACKAGE durak_test', -4043);
     drop_if_exists('DROP PACKAGE durak_maintenance', -4043);
     drop_if_exists('DROP PACKAGE durak_console', -4043);
